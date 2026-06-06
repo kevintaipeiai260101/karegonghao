@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KareGongHao - 決策引擎 Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .dashboard-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .dashboard-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .dashboard-title h1 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .dashboard-title p {
+            color: #666;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .kpi-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .kpi-label {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .ranking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .ranking-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .ranking-card h2 {
+            margin-bottom: 24px;
+            font-size: 1.4rem;
+        }
+
+        .ranking-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ranking-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .ranking-list li:last-child {
+            border-bottom: none;
+        }
+
+        .rank-name {
+            color: #333;
+        }
+
+        .rank-value {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ranking-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-title h1 {
+                font-size: 2rem;
+            }
+
+            .kpi-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">KareGongHao</a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="story.html">品牌故事</a></li>
+            <li><a href="worldview.html">世界觀</a></li>
+            <li><a href="system.html">中轉系統</a></li>
+            <li><a href="community.html">共好社群</a></li>
+            <li><a href="order.html">訂餐</a></li>
+            <li><a href="dashboard.html">決策引擎</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+
+<section class="dashboard-section">
+
+    <div class="dashboard-title">
+        <h1>決策引擎 Dashboard</h1>
+        <p>即時營運數據總覽</p>
+    </div>
+
+    <div id="loading" class="loading">
+        讀取資料中...
+    </div>
+
+    <div id="dashboardContent" style="display:none;">
+
+        <div class="kpi-grid">
+
+            <div class="kpi-card">
+                <div class="kpi-label">總訂單數</div>
+                <div class="kpi-value" id="totalOrders">0</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">總客戶數</div>
+                <div class="kpi-value" id="totalCustomers">0</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">回購客戶數</div>
+                <div class="kpi-value" id="repeatCustomers">0</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">回購率</div>
+                <div class="kpi-value" id="repurchaseRate">0%</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">餐盒供應量</div>
+                <div class="kpi-value" id="totalMeals">0</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">合作據點數</div>
+                <div class="kpi-value" id="partnerNodes">0</div>
+            </div>
+
+        </div>
+
+        <div class="ranking-grid">
+
+            <div class="ranking-card">
+                <h2>熱門餐點 Top 5</h2>
+                <ul id="topItems" class="ranking-list"></ul>
+            </div>
+
+            <div class="ranking-card">
+                <h2>熱門據點 Top 5</h2>
+                <ul id="topNodes" class="ranking-list"></ul>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+<script src="js/menu.js"></script>
+
+<script>
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbwini_Sc3gLcVodZ9dHrB2G-i8TpOrN1pCWJFeK0JwQBe1HVEDI-S9n1K_dzqjkXMy3Ew/exec?action=dashboard";
+
+fetch(API_URL)
+.then(response => response.json())
+.then(data => {
+
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("dashboardContent").style.display = "block";
+
+    document.getElementById("totalOrders").textContent = data.totalOrders;
+    document.getElementById("totalCustomers").textContent = data.totalCustomers;
+    document.getElementById("repeatCustomers").textContent = data.repeatCustomers;
+    document.getElementById("repurchaseRate").textContent = data.repurchaseRate + "%";
+    document.getElementById("totalMeals").textContent = data.totalMeals;
+    document.getElementById("partnerNodes").textContent = data.partnerNodes;
+
+    const topItems = document.getElementById("topItems");
+    data.topItems.forEach(item => {
+
+        const li = document.createElement("li");
+
+        li.innerHTML = `
+            <span class="rank-name">${item[0]}</span>
+            <span class="rank-value">${item[1]}</span>
+        `;
+
+        topItems.appendChild(li);
+    });
+
+    const topNodes = document.getElementById("topNodes");
+
+    data.topNodes.forEach(node => {
+
+        const li = document.createElement("li");
+
+        li.innerHTML = `
+            <span class="rank-name">${node[0]}</span>
+            <span class="rank-value">${node[1]}</span>
+        `;
+
+        topNodes.appendChild(li);
+    });
+
+})
+.catch(error => {
+
+    console.error(error);
+
+    document.getElementById("loading").innerHTML =
+        "資料讀取失敗";
+});
+
+</script>
+
+</body>
+</html>
