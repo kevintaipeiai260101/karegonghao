@@ -1,0 +1,240 @@
+/* ==================================================
+   KARE NODE SYSTEM
+   responsive.css
+================================================== */
+
+/* ==========================================
+   Notebook
+========================================== */
+
+@media (max-width: 1200px) {
+
+    .hero-content h2 {
+        font-size: 52px;
+    }
+
+    .section-title h2 {
+        font-size: 38px;
+    }
+
+}
+
+/* ==========================================
+   Tablet
+========================================== */
+
+@media (max-width: 1024px) {
+
+    .section {
+        padding: 80px 0;
+    }
+
+    .hero-container {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .hero-content,
+    .hero-image {
+        width: 100%;
+    }
+
+    .hero-content h2 {
+        font-size: 48px;
+    }
+
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+/* ==========================================
+   Mobile
+========================================== */
+
+@media (max-width: 768px) {
+
+    .container {
+        width: 92%;
+    }
+
+    .section {
+        padding: 60px 0;
+    }
+
+    .desktop-nav {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .brand-text h1 {
+        font-size: 18px;
+    }
+
+    .brand-text p {
+        font-size: 11px;
+    }
+
+    .logo-placeholder {
+        width: 50px;
+        height: 50px;
+    }
+
+    .hero {
+        min-height: auto;
+        padding-top: 40px;
+    }
+
+    .hero-content h2 {
+        font-size: 36px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    .image-placeholder {
+        min-height: 260px;
+    }
+
+    .section-title {
+        margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+        font-size: 30px;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 24px;
+    }
+
+    blockquote {
+        font-size: 28px;
+    }
+
+    .cta-section h2 {
+        font-size: 30px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+}
+
+/* ==========================================
+   Small Mobile
+========================================== */
+
+@media (max-width: 480px) {
+
+    .hero-content h2 {
+        font-size: 30px;
+    }
+
+    .section-title h2 {
+        font-size: 26px;
+    }
+
+    blockquote {
+        font-size: 24px;
+    }
+
+    .system-flow {
+        font-size: 20px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+}
+
+/* ==========================================
+   Mobile Fullscreen Menu
+========================================== */
+
+.mobile-menu {
+
+    position: fixed;
+
+    top: 0;
+    left: -100%;
+
+    width: 100%;
+    height: 100vh;
+
+    background: #FAF8F3;
+
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.3s ease;
+
+}
+
+.mobile-menu.active {
+    left: 0;
+}
+
+.mobile-menu ul {
+    list-style: none;
+    text-align: center;
+}
+
+.mobile-menu li {
+    margin: 20px 0;
+}
+
+.mobile-menu a {
+
+    text-decoration: none;
+
+    color: #3E2F24;
+
+    font-size: 24px;
+    font-weight: 600;
+
+}
+
+.mobile-menu-close {
+
+    position: absolute;
+
+    top: 25px;
+    right: 25px;
+
+    font-size: 36px;
+
+    background: none;
+    border: none;
+
+    cursor: pointer;
+
+}
