@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>決策引擎 Dashboard - 卡哩共好 KARE NODE SYSTEM</title>
+
+    <meta name="description" content="卡哩共好決策引擎 Dashboard，即時查看平台營運數據。">
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="images/favicon.png"
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+
+        .dashboard-hero {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+
+        .dashboard-hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .dashboard-hero p {
+            color: #666;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+
+        .kpi-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 36px 24px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+
+        .kpi-label {
+            color: #777;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        .kpi-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .ranking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .ranking-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+
+        .ranking-card h3 {
+            margin-bottom: 24px;
+        }
+
+        .ranking-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ranking-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .ranking-list li:last-child {
+            border-bottom: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 80px 20px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+
+            .dashboard-hero h2 {
+                font-size: 2rem;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ranking-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-value {
+                font-size: 2.3rem;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <header class="site-header">
+
+        <div class="container header-container">
+
+            <div class="logo-area">
+
+                <a href="index.html" class="brand-link">
+
+                    <img
+                        src="images/logo-v1.png"
+                        alt="卡哩共好 KARE NODE SYSTEM"
+                        class="site-logo"
+                    >
+
+                    <div class="brand-text">
+                        <h1>卡哩共好</h1>
+                        <p>KARE NODE SYSTEM</p>
+                    </div>
+
+                </a>
+
+            </div>
+
+            <nav class="desktop-nav">
+
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="worldview.html">世界觀</a></li>
+                    <li><a href="story.html">品牌故事</a></li>
+                    <li><a href="system.html">中轉系統</a></li>
+                    <li><a href="community.html">社區共好</a></li>
+                    <li><a href="order.html">訂餐</a></li>
+                    <li><a href="dashboard.html">決策引擎</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+
+            </nav>
+
+            <button class="menu-toggle">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- Hero -->
+
+    <section class="dashboard-hero">
+
+        <div class="container">
+
+            <h2>決策引擎 Dashboard</h2>
+
+            <p>
+                即時營運數據總覽
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- Dashboard -->
+
+    <section>
+
+        <div class="dashboard-container">
+
+            <div id="loading" class="loading">
+                讀取資料中...
+            </div>
+
+            <div id="dashboardContent" style="display:none;">
+
+                <div class="kpi-grid">
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">總訂單數</div>
+                        <div class="kpi-value" id="totalOrders">0</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">總客戶數</div>
+                        <div class="kpi-value" id="totalCustomers">0</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">回購客戶數</div>
+                        <div class="kpi-value" id="repeatCustomers">0</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">回購率</div>
+                        <div class="kpi-value" id="repurchaseRate">0%</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">餐盒供應量</div>
+                        <div class="kpi-value" id="totalMeals">0</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">合作據點數</div>
+                        <div class="kpi-value" id="partnerNodes">0</div>
+                    </div>
+
+                </div>
+
+                <div class="ranking-grid">
+
+                    <div class="ranking-card">
+
+                        <h3>熱門餐點 Top 5</h3>
+
+                        <ul id="topItems" class="ranking-list"></ul>
+
+                    </div>
+
+                    <div class="ranking-card">
+
+                        <h3>熱門據點 Top 5</h3>
+
+                        <ul id="topNodes" class="ranking-list"></ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+
+    <footer class="site-footer">
+
+        <div class="container footer-container">
+
+            <div>
+
+                <h3>卡哩共好</h3>
+
+                <p>KARE NODE SYSTEM</p>
+
+                <p>
+                    有些人缺少的，
+                    不是能力，
+                    而是一個能重新開始的地方。
+                </p>
+
+            </div>
+
+            <div>
+
+                <h3>網站導覽</h3>
+
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="worldview.html">世界觀</a></li>
+                    <li><a href="story.html">品牌故事</a></li>
+                    <li><a href="system.html">中轉系統</a></li>
+                    <li><a href="community.html">社區共好</a></li>
+                    <li><a href="order.html">訂餐</a></li>
+                    <li><a href="dashboard.html">決策引擎</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+
+            </div>
+
+            <div>
+
+                <h3>聯絡方式</h3>
+
+                <ul>
+                    <li>LINE</li>
+                    <li>Email</li>
+                    <li>Instagram</li>
+                    <li>Facebook</li>
+                </ul>
+
+            </div>
+
+            <div>
+
+                <h3>合作方向</h3>
+
+                <ul>
+                    <li>早餐店合作</li>
+                    <li>社福合作</li>
+                    <li>社區合作</li>
+                    <li>企業 CSR</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 卡哩共好 KARE NODE SYSTEM
+        </div>
+
+    </footer>
+
+    <script src="js/menu.js"></script>
+
+    <script>
+
+    const API_URL =
+    "https://script.google.com/macros/s/AKfycbwini_Sc3gLcVodZ9dHrB2G-i8TpOrN1pCWJFeK0JwQBe1HVEDI-S9n1K_dzqjkXMy3Ew/exec?action=dashboard";
+
+    fetch(API_URL)
+    .then(response => response.json())
+    .then(data => {
+
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("dashboardContent").style.display = "block";
+
+        document.getElementById("totalOrders").textContent = data.totalOrders;
+        document.getElementById("totalCustomers").textContent = data.totalCustomers;
+        document.getElementById("repeatCustomers").textContent = data.repeatCustomers;
+        document.getElementById("repurchaseRate").textContent = data.repurchaseRate + "%";
+        document.getElementById("totalMeals").textContent = data.totalMeals;
+        document.getElementById("partnerNodes").textContent = data.partnerNodes;
+
+        const topItems = document.getElementById("topItems");
+
+        data.topItems.forEach(item => {
+
+            const li = document.createElement("li");
+
+            li.innerHTML = `
+                <span>${item[0]}</span>
+                <span>${item[1]}</span>
+            `;
+
+            topItems.appendChild(li);
+
+        });
+
+        const topNodes = document.getElementById("topNodes");
+
+        data.topNodes.forEach(node => {
+
+            const li = document.createElement("li");
+
+            li.innerHTML = `
+                <span>${node[0]}</span>
+                <span>${node[1]}</span>
+            `;
+
+            topNodes.appendChild(li);
+
+        });
+
+    })
+    .catch(error => {
+
+        console.error(error);
+
+        document.getElementById("loading").innerHTML =
+        "資料讀取失敗";
+
+    });
+
+    </script>
+
+</body>
+</html>
