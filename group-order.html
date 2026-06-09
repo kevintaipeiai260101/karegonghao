@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>團購訂餐｜卡哩共好</title>
+
+<meta name="description" content="卡哩共好團購訂餐">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Noto Sans TC",sans-serif;
+    background:#FAF8F3;
+    color:#333;
+    line-height:1.8;
+}
+
+.container{
+    max-width:800px;
+    margin:auto;
+    padding:24px;
+}
+
+.back-link{
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    width:48px;
+    height:48px;
+
+    border:1px solid #D8D2C8;
+    border-radius:50%;
+
+    text-decoration:none;
+
+    color:#3E2F24;
+
+    font-size:22px;
+
+    margin-bottom:24px;
+
+    background:#FFF;
+
+}
+
+.back-link:hover{
+    background:#F4F1EA;
+}
+
+h1{
+    color:#3E2F24;
+    margin-bottom:20px;
+    font-size:32px;
+}
+
+.intro{
+
+    background:#FFF;
+
+    padding:24px;
+
+    border-radius:16px;
+
+    margin-bottom:32px;
+
+    color:#555;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+
+}
+
+.notice{
+
+    margin-top:16px;
+
+    padding:12px 16px;
+
+    background:#F4F1EA;
+
+    border-left:4px solid #C89B3C;
+
+    border-radius:8px;
+
+    font-size:14px;
+
+}
+
+.form-wrapper{
+
+    background:#FFF;
+
+    padding:32px;
+
+    border-radius:16px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+
+}
+
+.form-group{
+    margin-bottom:22px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#3E2F24;
+}
+
+input,
+select,
+textarea{
+
+    width:100%;
+
+    padding:12px 14px;
+
+    border:1px solid #D8D2C8;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    background:#FFF;
+
+}
+
+textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+.section-title{
+
+    margin-top:40px;
+    margin-bottom:20px;
+
+    font-size:20px;
+    font-weight:700;
+
+    color:#3E2F24;
+
+}
+
+.menu-card{
+
+    border:1px solid #E5E0D6;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    margin-bottom:16px;
+
+}
+
+.menu-card h3{
+
+    font-size:18px;
+
+    margin-bottom:12px;
+
+    color:#3E2F24;
+
+}
+
+.qty-input{
+    max-width:180px;
+}
+
+.submit-btn{
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#C89B3C;
+
+    color:#FFF;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+.submit-btn:hover{
+    opacity:0.9;
+}
+
+.required{
+    color:#C0392B;
+}
+
+@media(max-width:768px){
+
+    .container{
+        padding:20px;
+    }
+
+    .form-wrapper{
+        padding:24px;
+    }
+
+    h1{
+        font-size:28px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a
+        href="order-form.html"
+        class="back-link"
+        aria-label="返回上一頁"
+        title="返回上一頁"
+    >
+        ←
+    </a>
+
+    <h1>團購訂餐</h1>
+
+    <div class="intro">
+
+        每一份餐點，
+        都是支持社區共好的一份力量。
+
+        <br><br>
+
+        卡哩共好透過餐食與社區合作，
+        協助更多需要重新開始的人，
+        找回生活與工作的節奏。
+
+        <div class="notice">
+            團購訂餐適用於公司、機關、社區團體等集體訂購需求。
+        </div>
+
+    </div>
+
+    <div class="form-wrapper">
+
+        <form id="groupOrderForm">
+
+            <div class="section-title">
+                團購聯絡資料
+            </div>
+
+            <div class="form-group">
+                <label>公司／單位名稱 <span class="required">*</span></label>
+                <input type="text" name="company_name" required>
+            </div>
+
+            <div class="form-group">
+                <label>聯絡人姓名 <span class="required">*</span></label>
+                <input type="text" name="contact_name" required>
+            </div>
+
+            <div class="form-group">
+                <label>聯絡手機 <span class="required">*</span></label>
+                <input type="tel" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label>LINE 名稱</label>
+                <input type="text" name="line_name">
+            </div>
+
+            <div class="section-title">
+                取餐資訊
+            </div>
+
+            <div class="form-group">
+                <label>取餐日期 <span class="required">*</span></label>
+                <input type="date" name="pickup_date" required>
+            </div>
+
+            <div class="form-group">
+                <label>取餐時段 <span class="required">*</span></label>
+                <select name="pickup_time" required>
+                    <option value="">請選擇</option>
+                    <option>11:30</option>
+                    <option>11:45</option>
+                    <option>12:00</option>
+                    <option>12:15</option>
+                    <option>12:30</option>
+                    <option>12:45</option>
+                    <option>13:00</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>取餐據點 <span class="required">*</span></label>
+                <select name="pickup_node" required>
+                    <option value="">請選擇</option>
+                    <option>亞東醫院</option>
+                    <option>板橋站</option>
+                    <option>公司團購</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>配送／取餐地址</label>
+                <textarea
+                    name="delivery_address"
+                    placeholder="請填寫完整地址或指定取餐地點"
+                ></textarea>
+            </div>
+
+            <div class="section-title">
+                餐點選擇
+            </div>
+
+            <div class="menu-card">
+
+                <h3>🍛 經典豬排咖哩</h3>
+
+                <label>數量</label>
+
+                <input
+                    type="number"
+                    min="0"
+                    value="0"
+                    class="qty-input"
+                    name="pork_curry_qty"
+                >
+
+            </div>
+
+            <div class="menu-card">
+
+                <h3>🍛 無骨雞腿咖哩</h3>
+
+                <label>數量</label>
+
+                <input
+                    type="number"
+                    min="0"
+                    value="0"
+                    class="qty-input"
+                    name="chicken_curry_qty"
+                >
+
+            </div>
+
+            <div class="menu-card">
+
+                <h3>🍛 本日限定餐盒</h3>
+
+                <label>數量</label>
+
+                <input
+                    type="number"
+                    min="0"
+                    value="0"
+                    class="qty-input"
+                    name="daily_special_qty"
+                >
+
+            </div>
+
+            <div class="section-title">
+                付款方式
+            </div>
+
+            <div class="form-group">
+
+                <select name="payment_method">
+
+                    <option value="">請選擇</option>
+
+                    <option>現金</option>
+
+                    <option>LINE Pay</option>
+
+                    <option>團主統一付款</option>
+
+                </select>
+
+            </div>
+
+            <div class="section-title">
+                備註
+            </div>
+
+            <div class="form-group">
+
+                <textarea
+                    name="remark"
+                    placeholder="例如：發票需求、送達說明、其他需求..."
+                ></textarea>
+
+            </div>
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                確定送出
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+const WEB_APP_URL =
+"https://script.google.com/macros/s/AKfycbyrn7t13kIR-pItz22f_zZjg-_Uk8n2ziAjJuAzb2UzM1_lNMxLSd3leqTmoi9VPVSo/exec";
+
+document
+.getElementById("groupOrderForm")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const form = e.target;
+
+    const data = {
+
+        order_type : "group",
+
+        name : "",
+        phone : form.phone.value,
+        line_name : form.line_name.value,
+
+        company_name : form.company_name.value,
+        contact_name : form.contact_name.value,
+
+        pickup_date : form.pickup_date.value,
+        pickup_time : form.pickup_time.value,
+        pickup_node : form.pickup_node.value,
+
+        pork_qty : form.pork_curry_qty.value,
+        chicken_qty : form.chicken_curry_qty.value,
+        daily_qty : form.daily_special_qty.value,
+
+        extra_rice : false,
+        no_spicy : false,
+        need_cutlery : false,
+
+        payment_method : form.payment_method.value,
+
+        remark :
+            "配送地址：" +
+            form.delivery_address.value +
+            "\n\n" +
+            form.remark.value
+
+    };
+
+    try {
+
+        const response = await fetch(
+            WEB_APP_URL,
+            {
+                method : "POST",
+                body : JSON.stringify(data)
+            }
+        );
+
+        const result = await response.json();
+
+        if(result.success){
+
+            alert(
+                "團購訂單送出成功\n\n訂單編號：" +
+                result.order_id
+            );
+
+            form.reset();
+
+        } else {
+
+            alert("送出失敗");
+
+        }
+
+    } catch(error){
+
+        console.error(error);
+
+        alert("系統發生錯誤");
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
